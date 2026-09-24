@@ -26,8 +26,8 @@ class QEMU(object):
             self.reset_fs()
         q = ["make", "qemu"]
         self.proc = subprocess.Popen(q, stdin=subprocess.PIPE,
-                                      stdout=subprocess.PIPE,
-                                      stderr=subprocess.STDOUT)
+                                        stdout=subprocess.PIPE,
+                                        stderr=subprocess.STDOUT)
         os.set_blocking(self.proc.stdout.fileno(), False)
         self.output = ""
         self.outbytes = bytearray()
@@ -48,12 +48,12 @@ class QEMU(object):
             print(f"Command failed with exit code {e.returncode}")
 
     def save_output(self):
-      try:
-        with open("test-xv6.out", "w") as f:
-            f.write(self.output)
-            f.close()
-      except OSError as e:
-        print("Provided a bad results path. Error:", e)     
+        try:
+            with open("test-xv6.out", "w") as f:
+                f.write(self.output)
+                f.close()
+        except OSError as e:
+            print("Provided a bad results path. Error:", e)     
         
     def cmd(self, c):
         if isinstance(c, str):
@@ -211,8 +211,8 @@ def main():
     print(args)
     rex = r'%s' % args.testrex
     funcs = [(obj,name) for name,obj in inspect.getmembers(sys.modules[__name__]) 
-                     if (inspect.isfunction(obj) and 
-                         name.startswith('test'))]
+                    if (inspect.isfunction(obj) and 
+                        name.startswith('test'))]
     none = True
     for (f,n) in funcs:
         if re.search(rex, n):

@@ -110,14 +110,23 @@ hito1/notas.txt
 
 Para salir de QEMU, pulsar `Ctrl+a` y luego `x`.
 
-<!--
-PENDIENTES DEL HITO 1
-- Implementar primes: generador 2 a 35, filtros en cadena mediante pipe y fork,
-  cierre de extremos, EOF, wait y propagacion de errores.
-- Habilitar primes en UPROGS y verificar los 11 primos esperados y retorno al shell.
-- Documentar primes cuando este implementado y probado.
-- No se han provocado artificialmente fallos de fstat, read o entradas incompletas
-  de directorio: esas rutas se revisan en el codigo y no se declaran probadas.
-- Las ejecuciones repetidas y las pruebas de agotamiento de FD no demuestran por
-  si solas ausencia exhaustiva de fugas o de fallos del sistema.
--->
+## Función Primes
+
+### Problema a solucionar
+El objetivo de este programa es implementar la "Criba de Eratóstenes" de forma concurrente para encontrar números primos (específicamente entre el 2 y el 35). En lugar de calcular los primos de manera secuencial en un solo bloque de código, se busca delegar el trabajo matemático mediante una cadena de procesos paralelos que actúan como filtros.
+
+### Desarrollo y comunicación entre procesos
+Para resolver este desafío, el programa se estructuró en base a una **función recursiva** y el uso de tuberías (`pipes`) para la transmisión de datos.
+
+*   **Pipes (Tuberías):** Se utilizan como canales de comunicación unidireccional entre los nodos padre e hijo. El proceso padre inicial inyecta los números enteros a evaluar, y los procesos hijos leen estos números desde el extremo de lectura del pipe.
+*   **Recursión y Forks:** Cada vez que un proceso hijo recibe números, extrae el primero (que siempre será un primo válido), lo imprime, y aplica un filtro matemático (`módulo`) al resto de los números. Luego, mediante una llamada recursiva y un `fork()`, crea un nuevo proceso hijo y un nuevo pipe para pasarle únicamente los números que sobrevivieron al filtro.
+
+De esta forma, cada nodo en la cadena es responsable de imprimir un solo número primo y filtrar sus múltiplos.
+
+### Pruebas y validación
+A diferencia del explorador de archivos, para este programa no fue necesaria una sección de tests automatizados mediante scripts externos. La validación consta simplemente de ejecutar el programa en la consola y comprobar la salida estándar. 
+
+Para probarlo, basta con iniciar `make qemu` y ejecutar:
+
+```text
+primes

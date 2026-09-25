@@ -55,6 +55,5 @@ int main(){
         close(fd_init[1]);
         wait(0);
     }
-    exit(0);
-    
+    exit(0);   
 }

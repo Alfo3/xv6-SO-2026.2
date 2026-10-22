@@ -12,7 +12,7 @@ enum thread_state {
   THREAD_RUNNING,
 };
 
-// Registers preserved across RISC-V function calls and context switches.
+// Registros preservados entre llamadas y cambios de contexto RISC-V.
 struct thread_context {
   uint64 ra;
   uint64 sp;
@@ -36,10 +36,10 @@ struct thread {
   enum thread_state state;
 };
 
-// Prepare the table and register the program's main context as slot 0.
+// Inicializa la tabla y registra el contexto principal del programa en el slot 0.
 void thread_init(void);
 
-// Create a ready thread. Returns its slot ID, or -1 when the table is full.
+// Crea una hebra lista. Retorna su ID o -1 cuando la tabla está llena.
 int thread_create(void (*fn)(void));
 
 #endif

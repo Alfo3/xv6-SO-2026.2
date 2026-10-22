@@ -32,8 +32,7 @@ main(void)
   id_b = thread_create(worker_b);
   id_c = thread_create(worker_c);
   if (id_a != 1 || id_b != 2 || id_c != 3) {
-    printf("thread_test: unexpected initial IDs %d %d %d\n", id_a, id_b,
-           id_c);
+    printf("thread_test: unexpected initial IDs %d %d %d\n", id_a, id_b, id_c);
     exit(1);
   }
 

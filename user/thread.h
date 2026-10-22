@@ -3,7 +3,7 @@
 
 #include "kernel/types.h"
 
-#define THREAD_MAX 16
+#define THREAD_MAX        16
 #define THREAD_STACK_SIZE 4096
 
 enum thread_state {

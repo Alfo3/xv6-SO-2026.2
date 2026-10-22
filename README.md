@@ -13,6 +13,7 @@ técnica en este repositorio.
 | --- | --- |
 | Hito 1: Ficheros, Pipes y Procesos (Forks) | `find`: búsqueda recursiva de archivos, integrada en xv6 y con pruebas básicas realizadas. |
 | Hito 1: Ficheros, Pipes y Procesos (Forks) | `primes`: Función recursiva que imprime todos los números primos hasta el 35. Cada proceso tiene un número primo correspondiente, se utilizan pipes para la comunicación entre distintos procesos padre-hijo. |
+| Hito 2: Hilos de Usuario (Threads) | Avance Req. A+B: estructuras de hebras y `thread_create` en espacio de usuario. |
 
 Se verificaron la compilación desde cero en una copia temporal y el arranque
 de la versión actual con `make qemu`.
@@ -49,3 +50,4 @@ pulsar `Ctrl+a` y luego `x`.
 ## Documentación
 
 - [Guía técnica y pruebas del Hito 1](docs/hito1.md)
+- [Guía técnica y pruebas del Hito 2](docs/hito2.md)

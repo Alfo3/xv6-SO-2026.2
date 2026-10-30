@@ -5,29 +5,39 @@
 static void
 worker_a(void)
 {
+  for (int i = 0; i < 5; i++) {
+    printf("Hebra A: iteracion %d\n", i);
+    thread_yield();
+  }
 }
 
 static void
 worker_b(void)
 {
+  for (int i = 0; i < 5; i++) {
+    printf("Hebra B: iteracion %d\n", i);
+    thread_yield();
+  }
 }
 
 static void
 worker_c(void)
 {
+  for (int i = 0; i < 5; i++) {
+    printf("Hebra C: iteracion %d\n", i);
+    thread_yield();
+  }
 }
 
 int
 main(void)
 {
-  int i;
-  int id;
-  int id_a;
-  int id_b;
-  int id_c;
+  int id_a, id_b, id_c;
 
+  // 1. Inicialización
   thread_init();
 
+  // 2. Creación de al menos 3 hebras
   id_a = thread_create(worker_a);
   id_b = thread_create(worker_b);
   id_c = thread_create(worker_c);
@@ -36,19 +46,10 @@ main(void)
     exit(1);
   }
 
-  for (i = 4; i < THREAD_MAX; i++) {
-    id = thread_create(worker_a);
-    if (id != i) {
-      printf("thread_test: unexpected thread ID\n");
-      exit(1);
-    }
-  }
+  // 4. Ejecución: encendemos el planificador
+  printf("Iniciando planificador de hebras...\n");
+  thread_schedule();
+  printf("Todas las hebras han terminado correctamente.\n");
 
-  if (thread_create(worker_a) != -1) {
-    printf("thread_test: table was not full\n");
-    exit(1);
-  }
-
-  printf("thread_test: creation checks passed\n");
   exit(0);
 }

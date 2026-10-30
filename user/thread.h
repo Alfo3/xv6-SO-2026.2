@@ -12,7 +12,6 @@ enum thread_state {
   THREAD_RUNNING,
 };
 
-// Registros preservados entre llamadas y cambios de contexto RISC-V.
 struct thread_context {
   uint64 ra;
   uint64 sp;
@@ -34,6 +33,7 @@ struct thread {
   struct thread_context context;
   uchar stack[THREAD_STACK_SIZE] __attribute__((aligned(16)));
   enum thread_state state;
+  void (*fn)(void); 
 };
 
 // Inicializa la tabla y registra el contexto principal del programa en el slot 0.
@@ -41,5 +41,13 @@ void thread_init(void);
 
 // Crea una hebra lista. Retorna su ID o -1 cuando la tabla está llena.
 int thread_create(void (*fn)(void));
+
+// Selecciona la siguiente hebra y cambia el contexto.
+void thread_schedule(void);
+
+// Cede voluntariamente el procesador a otra hebra lista.
+void thread_yield(void);
+
+void thread_switch(struct thread_context *old, struct thread_context *new);
 
 #endif

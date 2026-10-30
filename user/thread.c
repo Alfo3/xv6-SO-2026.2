@@ -58,7 +58,7 @@ thread_schedule(void)
   for (i = 1; i <= THREAD_MAX; i++) {
     int idx = (current_idx + i) % THREAD_MAX;
     if (idx == 0)
-      continue; 
+      continue;
     t = &threads[idx];
     if (t->state == THREAD_READY) {
       next_thread = t;
@@ -67,7 +67,8 @@ thread_schedule(void)
   }
 
   if (next_thread == 0) {
-    if (current_thread != &threads[0] && current_thread->state == THREAD_READY) {
+    if (current_thread != &threads[0] &&
+        current_thread->state == THREAD_READY) {
       next_thread = current_thread;
     } else if (threads[0].state == THREAD_READY) {
       next_thread = &threads[0];

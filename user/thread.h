@@ -33,7 +33,7 @@ struct thread {
   struct thread_context context;
   uchar stack[THREAD_STACK_SIZE] __attribute__((aligned(16)));
   enum thread_state state;
-  void (*fn)(void); 
+  void (*fn)(void);
 };
 
 // Inicializa la tabla y registra el contexto principal del programa en el slot 0.

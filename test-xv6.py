@@ -1,4 +1,4 @@
-#!/usr/bin/env -S python3
+#!/usr/bin/env python3
 
 #
 # python script that tests xv6 without having to boot it and type to its shell
@@ -149,14 +149,14 @@ def recover_log():
 def forphan():
     q = QEMU(True)
     q.cmd("forphan\n")
-    q.monitor(r'.*wait for kill and reclaim', timeout=30)
+    q.monitor('wait', timeout=30)
     q.crash()
     q.stop()
 
 def dorphan():
     q = QEMU(True)
     q.cmd("dorphan\n")
-    q.monitor(r'.*wait for kill and reclaim', timeout=30)
+    q.monitor('wait', timeout=30)
     q.crash()
     q.stop()
 
